@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <title>
+        Продвинутая работа с функциями
+    </title>
+    <link rel="stylesheet" href="../function/styles.css">
+    <link rel="stylesheet" href="../../test/tags/styles.css">
+</head>
+<body>
+<main class="main">
+    <h1>
+        Рекурсия
+    </h1>
+
+    <p>
+        Дано число n, десятичная запись которого не содержит нулей. Получите число, записанное теми же цифрами, но в противоположном порядке.
+        При решении этой задачи нельзя использовать циклы, строки, списки, массивы, разрешается только рекурсия и целочисленная арифметика.
+        Функция должна возвращать целое число, являющееся результатом работы программы, выводить число по одной цифре нельзя.
+    </p>
+    <pre>
+let result = 0;
+
+function outputReverseNumber(item) {
+    if (item % 10 !== 0) {
+        result = 10 * result + item % 10;
+        outputReverseNumber((item - item % 10) / 10);
+    }
+
+    return result;
+}
+
+console.log(outputReverseNumber(5432));
+                        </pre>
+</main>
+<script src="./script.js"></script>
+</body>
+</html>
