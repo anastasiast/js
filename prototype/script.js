@@ -81,7 +81,7 @@ Object.prototype.copy = function(obj) {
     let copiedObj = {};
 
     for (let key in obj) {
-        copiedObj[key] = typeof obj[key] == "object" ? this(obj[key]) : obj[key];
+        copiedObj[key] = typeof obj[key] == 'object' ? this(obj[key]) : obj[key];
     }
     return copiedObj;
 }
