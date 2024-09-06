@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+      <title>Homework</title>
+    </head>
+    <body>
+        <div id="content" style="width: 100%; height: 75vh; background: #FF0;">
+            <input type="text" id="text" title="Enter text">
+
+        </div>
+
+        <script>
+            'use strict';
+            // function work(a, b) {
+            //     alert( a + b ); // произвольная функция или метод
+            // }
+            //
+            // function spy(func) {
+            //
+            //    return function workWrapper(...data) {
+            //        console.log('data:', data);
+            //
+            //        if (!workWrapper.calls) {
+            //            workWrapper.calls = [];
+            //        }
+            //
+            //        workWrapper.calls.push(data);
+            //        return func.apply(workWrapper, data);
+            //    }
+            // }
+            //
+            // work = spy(work);
+            //
+            // work(1, 2); // 3
+            // // work(4, 5); // 9
+            //
+            // for (let args of work.calls) {
+            //     alert( 'call:' + args.join() ); // "call:1,2", "call:4,5"
+            // }
+// ===================================================
+            // function f(x, y, q) {
+            //     alert(x+y+q);
+            // }
+            //
+            // function delay(callbackFunction, delayTime) {
+            //     console.log('callbackFunction:', callbackFunction);
+            //     console.log('delayTime:', delayTime);
+            //
+            //     return function() {
+            //         setTimeout(() => {
+            //             callbackFunction.apply(this, arguments)
+            //         }, delayTime)
+            //     }
+            // }
+            //
+            // // создаём обёртки
+            // let f2000 = delay(f, 2000);
+            //
+            // f2000("test", 'qwwqe', 11); // показывает "test" после 1000 мс
+// ============= DEBOUNCE =========================
+//
+//             function outputText(value) {
+//                 console.log(value);
+//             }
+//
+//             function debounce(func, ms) {
+//                 let timeout;
+//
+//                 return function() {
+//                     clearTimeout(timeout);
+//                     timeout = setTimeout(() => func.apply(this, arguments), ms);
+//                 };
+//             }
+//
+//             const outputTextWithDelay = debounce(outputText, 1000);
+//
+//             document.getElementById('text').addEventListener('input', function() {
+//                 outputTextWithDelay(this.value)
+//             })
+
+// ============= THROTTLE =========================
+//             function f(a) {
+//                 console.log(a)
+//             }
+//
+//             // f1000 передаёт вызовы f максимум раз в 1000 мс
+//             let f1000 = throttle(f, 1000);
+//
+//             f1000(1); // показывает 1
+//             f1000(2); // (ограничение, 1000 мс ещё нет)
+//             f1000(3); // (ограничение, 1000 мс ещё нет)
+
+            function outputMouseCoordinate(x, y) {
+                console.log('Coordinate X: ', x);
+                console.log('Coordinate Y: ', y);
+                console.log('');
+            }
+
+            function outputMouseCoordinateWithThrottle(callbackFunction, delay) {
+                let isThrottled = false;
+                let savedData = {};
+
+                function wrapper() {
+                    if (isThrottled) { //сохраняем текущие данные все время
+                        savedData.arguments = arguments;
+                        savedData.this = this;
+
+                        return;
+                    }
+
+                    callbackFunction.apply(this, arguments); // вызов для первого раза
+
+                    isThrottled = true;
+
+                    setTimeout(() => {
+                        isThrottled = false;
+
+                        if (savedData.this && savedData.arguments) {
+                            wrapper.apply(savedData.this, savedData.arguments);
+                            savedData = {};
+                        }
+
+                    }, delay);
+
+                };
+
+                return wrapper;
+            }
+
+            let outputFunction = outputMouseCoordinateWithThrottle(outputMouseCoordinate, 2000);
+
+            document.getElementById('content').addEventListener('mousemove', function(event) {
+                outputFunction(event.x, event.y);
+            })
+
+
+        </script>
+    </body>
+</html>
