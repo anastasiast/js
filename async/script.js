@@ -17,7 +17,7 @@ Promise.all = (promisesList) => {
                     results[index] = result;
                     notCompletedPromisesCount -= 1;
 
-                    if (notCompletedPromisesCount === 0) {
+                    if (!notCompletedPromisesCount) {
                         resolve(results);
                     }
                 }, reject)
