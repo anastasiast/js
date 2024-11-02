@@ -1,0 +1,14 @@
+Загрузка следующей страницы заказов
+
+URL: http:test.loc/orders/page
+Метод запроса: GET
+Заголовки:
+    accept: '*/*'
+    accept-encoding: 'gzip, deflate'
+    accept-language: 'ru-RU,ru'
+    cache-control: 'no-cache'
+    content-length: 1300
+    content-type: 'application/json'
+    cookie: 'user_allowed_save_cookie=1'
+Параметры:
+    loadNextPage: 1

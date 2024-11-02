@@ -1,0 +1,14 @@
+Удаление заказа
+
+URL: http:test.loc/delete-order
+Метод запроса: DELETE
+Заголовки:
+    accept: '*/*'
+    accept-encoding: 'gzip, deflate'
+    accept-language: 'ru-RU,ru'
+    cache-control: 'no-cache'
+    content-length: 100
+    content-type: 'application/json'
+    cookie: 'user_allowed_save_cookie=1'
+Параметры:
+    orderId: 1

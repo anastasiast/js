@@ -1,0 +1,14 @@
+Получение заказа по идентификатору
+
+URL: http:test.loc/orders/
+Метод запроса: GET
+Заголовки:
+    accept: '*/*'
+    accept-encoding: 'gzip, deflate'
+    accept-language: 'ru-RU,ru'
+    cache-control: 'no-cache'
+    content-length: 1300
+    content-type: 'application/json'
+    cookie: 'user_allowed_save_cookie=1'
+Параметры:
+    orderId: 1

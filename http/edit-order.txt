@@ -1,0 +1,39 @@
+Редактирование заказа
+
+URL: http:test.loc/edit-order
+Метод запроса: PUT
+Заголовки:
+    accept: '*/*'
+    accept-encoding: 'gzip, deflate'
+    accept-language: 'ru-RU,ru'
+    cache-control: 'no-cache'
+    content-length: 1314
+    content-type: 'application/json'
+    cookie: 'user_allowed_save_cookie=1'
+Параметры:
+    orderId: 1
+    paymentMethod:
+        method: 'cashondelivery'
+    email: 'test@test.ru'
+    addressInformation:
+        shipping_address:
+            email: 'test@test.ru'
+            countryId: 'RU'
+            region: 'Ростовская область'
+            street: 'Ленина'
+            telephone: '+7 (123) 123-12-32'
+            postcode: '111111'
+            city: 'Таганрог'
+            firstname: 'Тест-имя'
+            lastname: 'Тест-фамилия'
+            customAttributes:
+                house:
+                    attribute_code: 'house'
+                    value: '1'
+            extensionAttributes:
+                house: '1'
+                apartment: '1'
+            same_as_billing: 1
+            save_in_address_book: 0
+        shipping_method_code: 'default'
+        shipping_carrier_code: 'dynamicshipping'
