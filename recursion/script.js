@@ -8,7 +8,7 @@ function outputReverseNumber(item) {
         if (!Number.isInteger(item)) {
             return new Error('Необходимо ввести число');
         }
-        if (!(/^[1-9]+$/.test(item)) && !result) {
+        if (!(/^[1-9]+$/.test(item))) {
             return new Error('Число не должно содержать 0');
         }
 
