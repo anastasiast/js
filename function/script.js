@@ -4,9 +4,7 @@
 // в качестве аргументов, и возвращать сформированное в случайном порядке предложение
 
 function sentenceGenerator(...data) {
-    return [].sort.call(data, () => {
-        return Math.random() - 0.5
-    }).join(' ');
+    return [].sort.call(data, () => Math.random() - 0.5).join(' ');
 }
 console.log(sentenceGenerator('число', 'рука', 'я в лодке'));
 // =============================================
@@ -16,32 +14,24 @@ console.log(sentenceGenerator('число', 'рука', 'я в лодке'));
 // (серия и номер паспорта) и возвращать строку "Паспорт: ХХХХ ХХХХХХ".
 
 function getPassportData() {
-    let result = [].filter.call(arguments, (item) => {
-            return typeof item === "string" || item instanceof String
-        });
-
-    result.sort((a, b) => {
-        return (a.length < b.length) ? -1 :
-            ((a.length > b.length) ? 1 : 0)
-    });
-
-    let error = result.length != arguments.length ? 'Укажите аргументы строкового типа' :
-        (result.length !== 2 ? 'Необходимо ввести два параметра' : false);
-
-    if (!error) {
-        error = (result[0].length !== 4 || result[1].length !== 6) ?
-            'Введите параметры в следующем виде: ХХХХ ХХХХХХ' : false;
+    if (arguments.length !== 2) {
+        return new Error('Необходимо ввести два параметра');
     }
 
-    if (error) {
-        alert(error);
-
-        return false;
+    if (![].every.call(arguments, (item)=> typeof item === 'string')) {
+        return new Error('Параметры должны быть строкового типа');
     }
 
-    alert('Паспорт: ' + result.join(' '));
+    if (['4,6', '6,4'].indexOf([].map.call(arguments, (item) => item.length).toString()) < 0) {
+        return new Error('Один из параметров должен содержать 4 символа, второй - 6 символов');
+    }
+
+    return `Паспорт: ${[].join.call(
+        [].sort.call(arguments, (a,b) => (a.length < b.length) ? -1 :
+            ((a.length > b.length) ? 1 : 0)), ' '
+    )}`
 }
-getPassportData("147985", "1334");
+console.log(getPassportData("121122", "2334"));
 // =============================================
 
 
@@ -55,12 +45,15 @@ let User = {
     lastname: "Doe"
 }
 const getName = getFullName.bind(User);
-alert(getName());
+console.log(getName());
 // =============================================
 
 
 // Конструктор функции
 let mathOperations = ["return a + b + c", "return a * b", "return a - b - c", "return b / c"];
-let randMathOperation = mathOperations[Math.floor(Math.random() * mathOperations.length)];
-let getResultMathOperation = new Function('a', 'b', 'c', randMathOperation);
-alert(getResultMathOperation(1, 2, 3));
+let getResultMathOperatioin = new Function(
+    'a', 'b', 'c',
+    'return new Function("a", "b", "c", mathOperations[Math.floor(Math.random() * mathOperations.length)])(a,b,c);'
+);
+console.log(getResultMathOperatioin(1,2,3));
+console.log(getResultMathOperatioin(1,2,3));

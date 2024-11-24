@@ -23,9 +23,7 @@
                         Написать фунцию, которая будет принимать неограниченное количество строк в качестве аргументов, и возвращать сформированное в случайном порядке предложение
                         <pre>
 function sentenceGenerator(...data) {
-    return [].sort.call(data, () => {
-        return Math.random() - 0.5
-    }).join(' ');
+    return [].sort.call(data, () => Math.random() - 0.5).join(' ');
 }
                         </pre>
                     </li>
