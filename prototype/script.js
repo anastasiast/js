@@ -43,29 +43,32 @@ let MasterProduct = Object.create(Product, {
         value: 1234
     },
     specialPrice: {
-        value: 1200
+        value: 1200,
+        writable: true
     },
     economy: {
-        value: 34
+        get() {
+            return this.price - this.specialPrice
+        }
     },
     addToCompare: {
         value() {
-            alert('Added to compare')
+            alert(`Item id#${this.id} was added to compare`)
         }
     },
     addToWishlist: {
         value() {
-            alert('Added to wishlist')
+            alert(`Item id#${this.id} was added to wishlist`)
         }
     },
     removeFromCompare: {
         value() {
-            alert('Remove from compare')
+            alert(`Item id#${this.id} was removed from compare`)
         }
     },
     removeFromWishlist: {
         value() {
-            alert('Remove from wishlist')
+            alert(`Item id#${this.id} was removed from wishlist`)
         }
     }
 });
