@@ -1,13 +1,18 @@
 'use strict';
 
 class Product {
+    #id;
+    #sku;
+    #rank;
+
     constructor(id, title, sku, qty, rank, reviews) {
-        this.id = id
-        this.title = title
-        this.sku = sku
-        this.qty = qty
-        this.rank = rank
-        this.reviews = reviews
+        this.#id = id;
+        this.#sku = sku;
+        this.#rank = rank;
+
+        this.title = title;
+        this.qty = qty;
+        this.reviews = reviews;
     }
 
     addToCart() {
@@ -25,82 +30,75 @@ class Product {
     decreaseQty(qty) {
         return qty + 1
     }
+
+    get sku() {
+        return this.#sku;
+    }
+
+    get rank() {
+        return this.#rank;
+    }
 }
 
 
 class MasterProduct extends Product {
-    #idProduct;
-    #skuProduct = 0;
-    #rankProduct;
+    #id;
 
-    constructor(id, title, sku, qty, rank, reviews, attributes, price, discount) {
+    constructor(id, title, sku, qty, rank, reviews, attributes, price) {
         super(id, title, sku, qty, rank, reviews, attributes);
-
-        delete this.id;
-        delete this.sku;
-        delete this.rank;
-
-        this.#idProduct = id;
-        this.#skuProduct = sku;
-        this.#rankProduct = rank;
         this.attributes = attributes;
         this.price = price;
-
-        this.specialPrice = this.price * (100 - Number(discount))/100;
-        this.setEconomy();
-        this.setDeliveryDate();
-        this.setPickupDate();
+        this.#id = id;
     }
 
-    set specialPrice(value) {
-        this._specialPrice = value;
+    set discount(discount) {
+        this._specialPrice = this.price * (100 - Number(discount))/100;
     }
 
     get specialPrice() {
-        return this._specialPrice
+        return this._specialPrice || this.price
     }
 
-    setDeliveryDate() {
-        this.deliveryDate = new Date();
-        this.deliveryDate.setDate(new Date().getDate() + 10);
+    get deliveryDate() {
+        const deliveryDate = new Date(new Date().setDate(new Date().getDate() + 10));
+
+        return [deliveryDate.getDate(), deliveryDate.getMonth(), deliveryDate.getFullYear()].join('.');
     }
 
-    setPickupDate() {
-        this.pickupDate = new Date();
+    get pickupDate() {
+        const pickupDate = (new Date().getHours() > 18 ?
+            new Date(new Date().setDate(new Date().getDate() + 1)) : new Date());
 
-        if (this.pickupDate.getHours() > 18) {
-            this.pickupDate.setDate(new Date().getDate() + 1)
-        }
+        return [pickupDate.getDate(), pickupDate.getMonth(), pickupDate.getFullYear()].join('.');
     }
 
-    setEconomy() {
-        this.economy = this.price - this.specialPrice;
+    get economy() {
+        return this.price - this.specialPrice;
     }
 
     addToCompare() {
-        alert(`Item ${this.id} added to compare`);
+        alert(`Item ${this.#id} added to compare`);
     }
 
     addToWishlist() {
-        alert(`Item ${this.id} added to wishlist`);
+        alert(`Item ${this.#id} added to wishlist`);
     }
 
     removeFromCompare() {
-        alert(`Item ${this.id} removed from compare`);
+        alert(`Item ${this.#id} removed from compare`);
     }
 
     removeFromWishlist() {
-        alert(`Item ${this.id} removed from wishlist`);
+        alert(`Item ${this.#id} removed from wishlist`);
     }
 
-    updateAttributes() {
-        alert(`Updated attributes`);
+    updateAttributes(attributes) {
+        this.attributes = attributes;
     }
 
     increaseQty(qty) {
         if (qty > this.qty) {
-            alert(`Quantity must be less ${this.qty}`);
-            return false;
+            return alert(`Quantity must be less ${this.qty}`);
         }
 
         super.increaseQty(qty);
@@ -108,27 +106,10 @@ class MasterProduct extends Product {
 
     decreaseQty(qty) {
         if (qty < 1) {
-            alert(`Quantity must be more 1`);
-            return false;
+            return alert(`Quantity must be more 1`);
         }
 
         super.increaseQty(qty);
-    }
-
-    set skuProduct(value) {
-        this.#skuProduct = value;
-    }
-
-    get skuProduct() {
-        return this.#skuProduct;
-    }
-
-    set rankProduct(value) {
-        this.#rankProduct = value;
-    }
-
-    get rankProduct() {
-        return this.#rankProduct;
     }
 }
 
